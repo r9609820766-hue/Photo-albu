@@ -1,0 +1,2978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rupam Das | Actor Profile</title>
+
+<!-- PDF ENGINE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+
+:root{
+    --black:#111111;
+    --dark:#1b1b1b;
+    --gold:#b08a45;
+    --gold-light:#d8bd86;
+    --text:#242424;
+    --muted:#6d6d6d;
+    --line:#dedede;
+    --soft:#f5f4f1;
+    --white:#ffffff;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:30px 15px;
+    background:#e8e8e8;
+    color:var(--text);
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.toolbar{
+    width:100%;
+    max-width:794px;
+    margin:0 auto 22px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.toolbar button{
+    border:0;
+    padding:13px 24px;
+    border-radius:5px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    letter-spacing:.4px;
+}
+
+.download-btn{
+    background:var(--black);
+    color:#fff;
+}
+
+.top-btn{
+    background:#fff;
+    color:var(--black);
+    border:1px solid #ccc!important;
+}
+
+.toolbar button:disabled{
+    opacity:.6;
+    cursor:wait;
+}
+
+#pdfStatus{
+    width:100%;
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    min-height:18px;
+}
+
+/* =========================================================
+   A4 DOCUMENT
+   ========================================================= */
+
+#pdfDocument{
+    width:210mm;
+    margin:0 auto;
+}
+
+.page{
+    position:relative;
+    width:210mm;
+    height:297mm;
+    min-height:297mm;
+    margin:0 auto 25px;
+    padding:15mm;
+    background:#fff;
+    overflow:hidden;
+    box-shadow:0 8px 35px rgba(0,0,0,.13);
+    page-break-after:always;
+    break-after:page;
+}
+
+.page:last-child{
+    page-break-after:auto;
+    break-after:auto;
+}
+
+.page::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:4px;
+    background:var(--black);
+}
+
+.page::after{
+    content:"";
+    position:absolute;
+    left:0;
+    top:4px;
+    width:42%;
+    height:3px;
+    background:var(--gold);
+}
+
+.inner{
+    position:relative;
+    z-index:2;
+    height:100%;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+    display:grid;
+    grid-template-columns:1fr 58mm;
+    gap:13mm;
+    align-items:center;
+    min-height:70mm;
+}
+
+.hero-name{
+    margin:0;
+    font-size:38px;
+    line-height:1;
+    letter-spacing:1px;
+    color:var(--black);
+    font-weight:800;
+}
+
+.hero-role{
+    margin-top:8px;
+    color:var(--gold);
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+.hero-tag{
+    margin-top:12px;
+    max-width:105mm;
+    font-size:12px;
+    line-height:1.7;
+    color:var(--muted);
+}
+
+/* =========================================================
+   REAL IMAGE SYSTEM
+   ========================================================= */
+
+.photo-frame{
+    position:relative;
+    overflow:hidden;
+    background:#eeeeee;
+}
+
+.headshot{
+    width:58mm;
+    height:68mm;
+    border:5px solid var(--black);
+    position:relative;
+    overflow:hidden;
+    background:#ddd;
+}
+
+.headshot img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+}
+
+.headshot::after{
+    content:"";
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:25px;
+    height:25px;
+    background:var(--gold);
+    z-index:3;
+    pointer-events:none;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section{
+    margin-top:12px;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:9px;
+}
+
+.section-number{
+    width:24px;
+    height:24px;
+    background:var(--black);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    flex:none;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:16px;
+    color:var(--black);
+    letter-spacing:.4px;
+}
+
+.section-line{
+    flex:1;
+    height:1px;
+    background:var(--line);
+}
+
+/* =========================================================
+   QUICK CARDS
+   ========================================================= */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+}
+
+.quick-card{
+    border:1px solid var(--line);
+    background:var(--soft);
+    padding:9px;
+    min-height:46px;
+}
+
+.quick-label{
+    color:var(--muted);
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+}
+
+.quick-value{
+    margin-top:3px;
+    font-size:10px;
+    font-weight:700;
+    color:var(--black);
+}
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-box{
+    border-left:3px solid var(--gold);
+    padding:10px 12px;
+    background:#faf9f6;
+    font-size:10.5px;
+    line-height:1.65;
+}
+
+/* =========================================================
+   INFO
+   ========================================================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px 18px;
+}
+
+.info-item{
+    border-bottom:1px solid var(--line);
+    padding:6px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    font-size:9.5px;
+}
+
+.info-item span:first-child{
+    color:var(--muted);
+}
+
+.info-item strong{
+    text-align:right;
+    color:var(--black);
+}
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+.timeline{
+    position:relative;
+    padding-left:18px;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:4px;
+    top:4px;
+    bottom:4px;
+    width:1px;
+    background:var(--gold);
+}
+
+.timeline-item{
+    position:relative;
+    margin-bottom:9px;
+}
+
+.timeline-item:last-child{
+    margin-bottom:0;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    left:-17px;
+    top:5px;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--gold);
+}
+
+.timeline-title{
+    font-size:10.5px;
+    font-weight:800;
+    color:var(--black);
+}
+
+.timeline-text{
+    margin-top:2px;
+    font-size:9.5px;
+    line-height:1.5;
+    color:var(--muted);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+    position:absolute;
+    left:15mm;
+    right:15mm;
+    bottom:7mm;
+    padding-top:5px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    font-size:7.5px;
+    color:var(--muted);
+    z-index:5;
+}
+
+.footer strong{
+    color:var(--black);
+}
+
+/* =========================================================
+   INNER HEADER
+   ========================================================= */
+
+.inner-header{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin-bottom:12px;
+    padding-top:5px;
+}
+
+.inner-header h1{
+    margin:0;
+    font-size:24px;
+    letter-spacing:.5px;
+    color:var(--black);
+}
+
+.inner-header span{
+    font-size:8px;
+    color:var(--gold);
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   TAGS
+   ========================================================= */
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.tag{
+    padding:6px 9px;
+    border:1px solid #cfcfcf;
+    background:#fafafa;
+    font-size:8.5px;
+    font-weight:700;
+}
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.skills-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.skill-card{
+    border:1px solid var(--line);
+    padding:9px 10px;
+    background:#fff;
+}
+
+.skill-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+}
+
+.skill-name{
+    font-size:10px;
+    font-weight:800;
+    color:var(--black);
+}
+
+.skill-level{
+    font-size:7.5px;
+    color:var(--gold);
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.skill-text{
+    margin-top:4px;
+    font-size:8.5px;
+    color:var(--muted);
+    line-height:1.45;
+}
+
+/* =========================================================
+   TWO COLUMN
+   ========================================================= */
+
+.two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+/* =========================================================
+   LANGUAGE TABLE
+   ========================================================= */
+
+.language-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:8.5px;
+}
+
+.language-table th{
+    background:var(--black);
+    color:#fff;
+    text-align:left;
+    padding:6px;
+}
+
+.language-table td{
+    border-bottom:1px solid var(--line);
+    padding:6px;
+}
+
+/* =========================================================
+   AVAILABILITY
+   ========================================================= */
+
+.availability-box{
+    background:var(--black);
+    color:#fff;
+    padding:12px;
+}
+
+.availability-box h3{
+    margin:0 0 6px;
+    color:var(--gold-light);
+    font-size:12px;
+}
+
+.availability-box p{
+    margin:0;
+    font-size:9px;
+    line-height:1.55;
+}
+
+/* =========================================================
+   TERMS
+   ========================================================= */
+
+.term-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.term{
+    border:1px solid var(--line);
+    padding:9px;
+    background:#fafafa;
+}
+
+.term strong{
+    display:block;
+    font-size:9px;
+    color:var(--black);
+    margin-bottom:4px;
+}
+
+.term span{
+    font-size:8.5px;
+    color:var(--muted);
+    line-height:1.45;
+}
+
+/* =========================================================
+   PORTFOLIO GALLERY
+   ========================================================= */
+
+.gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.portfolio-photo{
+    height:76mm;
+    background:#ddd;
+    border:3px solid var(--black);
+    position:relative;
+    overflow:hidden;
+}
+
+.portfolio-photo img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    object-position:center;
+}
+
+.photo-label{
+    position:absolute;
+    left:0;
+    bottom:0;
+    background:rgba(17,17,17,.9);
+    color:#fff;
+    padding:6px 9px;
+    font-size:8px;
+    font-weight:700;
+    z-index:2;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-card{
+    background:var(--soft);
+    border:1px solid var(--line);
+    padding:13px;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px 20px;
+}
+
+.contact-item{
+    font-size:9.5px;
+    padding:5px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.contact-item small{
+    display:block;
+    font-size:7px;
+    text-transform:uppercase;
+    color:var(--muted);
+    letter-spacing:.6px;
+    margin-bottom:2px;
+}
+
+.contact-item strong{
+    color:var(--black);
+}
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.cta{
+    margin-top:10px;
+    background:var(--black);
+    color:#fff;
+    padding:13px;
+    text-align:center;
+}
+
+.cta h2{
+    margin:0 0 5px;
+    font-size:16px;
+    color:var(--gold-light);
+}
+
+.cta p{
+    margin:0;
+    font-size:9px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.note{
+    font-size:8px;
+    line-height:1.5;
+    color:var(--muted);
+    padding:8px;
+    background:#fafafa;
+    border-left:2px solid var(--gold);
+}
+
+.badge{
+    display:inline-block;
+    background:var(--black);
+    color:#fff;
+    padding:4px 7px;
+    font-size:7px;
+    letter-spacing:.5px;
+    font-weight:700;
+}
+
+/* =========================================================
+   PDF RENDERING MODE
+   ========================================================= */
+
+body.pdf-rendering{
+    width:210mm!important;
+    min-width:210mm!important;
+    padding:0!important;
+    margin:0!important;
+    background:#fff!important;
+    overflow:hidden!important;
+}
+
+body.pdf-rendering .toolbar{
+    display:none!important;
+}
+
+body.pdf-rendering #pdfDocument{
+    width:210mm!important;
+    margin:0!important;
+}
+
+body.pdf-rendering .page{
+    width:210mm!important;
+    height:297mm!important;
+    min-height:297mm!important;
+    margin:0!important;
+    padding:15mm!important;
+    box-shadow:none!important;
+    overflow:hidden!important;
+}
+
+body.pdf-rendering .hero{
+    grid-template-columns:1fr 58mm!important;
+}
+
+body.pdf-rendering .quick-grid{
+    grid-template-columns:repeat(4,1fr)!important;
+}
+
+body.pdf-rendering .info-grid,
+body.pdf-rendering .skills-grid,
+body.pdf-rendering .two-col,
+body.pdf-rendering .gallery,
+body.pdf-rendering .term-grid{
+    grid-template-columns:1fr 1fr!important;
+}
+
+body.pdf-rendering .footer{
+    position:absolute!important;
+}
+
+/*
+ IMPORTANT:
+ Images remain normal IMG elements during PDF rendering.
+ This prevents the old CSS background-image problem.
+*/
+
+body.pdf-rendering img{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:850px){
+
+    body{
+        padding:12px 6px;
+    }
+
+    #pdfDocument{
+        width:100%;
+    }
+
+    .page{
+        width:100%;
+        height:auto;
+        min-height:0;
+        margin-bottom:18px;
+        padding:24px 18px 55px;
+        overflow:visible;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .headshot{
+        width:58mm;
+        height:68mm;
+        margin:auto;
+    }
+
+    .hero-name{
+        font-size:32px;
+    }
+
+    .quick-grid,
+    .info-grid,
+    .skills-grid,
+    .two-col,
+    .gallery,
+    .term-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer{
+        position:relative;
+        left:auto;
+        right:auto;
+        bottom:auto;
+        margin-top:20px;
+    }
+
+    .portfolio-photo{
+        height:90mm;
+    }
+}
+
+/* =========================================================
+   PRINT FALLBACK
+   ========================================================= */
+
+@page{
+    size:A4 portrait;
+    margin:0;
+}
+
+@media print{
+
+    body{
+        margin:0;
+        padding:0;
+        background:#fff;
+    }
+
+    .toolbar{
+        display:none;
+    }
+
+    .page{
+        margin:0;
+        box-shadow:none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     TOOLBAR
+     ========================================================= -->
+
+<div class="toolbar">
+
+    <button
+        id="downloadPdfBtn"
+        class="download-btn"
+        onclick="generatePDF()">
+        DOWNLOAD ACTOR PROFILE PDF
+    </button>
+
+    <button
+        class="top-btn"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        BACK TO TOP
+    </button>
+
+    <div id="pdfStatus"></div>
+
+</div>
+
+
+<!-- =========================================================
+     PDF DOCUMENT
+     ========================================================= -->
+
+<div id="pdfDocument">
+
+
+<!-- =========================================================
+     PAGE 1
+     ========================================================= -->
+
+<section class="page">
+
+<div class="inner">
+
+    <div class="hero">
+
+        <div>
+
+            <div class="badge">
+                PROFESSIONAL ACTOR PROFILE
+            </div>
+
+            <h1 class="hero-name">
+                RUPAM DAS
+            </h1>
+
+            <div class="hero-role">
+                ACTOR
+            </div>
+
+            <div class="hero-tag">
+                ACTOR | FILMS • WEB SERIES • TELEVISION • PAN-INDIA PROJECTS
+            </div>
+
+            <p class="hero-tag">
+                Bengali actor with practical on-set experience as a Junior Artist
+                along with small talky and acting roles. Interested in professional
+                opportunities across films, OTT, web series, television,
+                advertisements and music videos.
+            </p>
+
+        </div>
+
+
+        <!-- PHOTO 1 -->
+        <div class="headshot">
+
+            <img
+                id="profilePhoto"
+                src=""
+                alt="Rupam Das Actor Headshot"
+                loading="eager"
+                decoding="sync">
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK DETAILS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">01</div>
+            <h2>Quick Casting Details</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="quick-grid">
+
+            <div class="quick-card">
+                <div class="quick-label">Age</div>
+                <div class="quick-value">18 Years</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Height</div>
+                <div class="quick-value">5 ft 5 in</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Weight</div>
+                <div class="quick-value">70 kg</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Build</div>
+                <div class="quick-value">Medium Build</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Hair</div>
+                <div class="quick-value">Black / Curly</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Eyes</div>
+                <div class="quick-value">Black</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Skin Tone</div>
+                <div class="quick-value">Brown / Medium Brown</div>
+            </div>
+
+            <div class="quick-card">
+                <div class="quick-label">Base</div>
+                <div class="quick-value">Kolkata, West Bengal</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFESSIONAL PROFILE -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">02</div>
+            <h2>Professional Profile</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="profile-box">
+
+            Rupam Das is an aspiring professional actor based in Kolkata,
+            West Bengal. He has practical experience on film and television
+            sets through Junior Artist work and small talky/acting roles.
+
+            <br><br>
+
+            This experience has provided familiarity with professional
+            shooting environments, camera-facing work, set discipline,
+            following direction and basic production workflow.
+
+            <br><br>
+
+            His primary focus is acting, with interest in lead, supporting,
+            romantic, college/young, action, crime/gangster, negative/grey,
+            police/army, corporate, family-drama, period and character roles.
+
+        </div>
+
+    </div>
+
+
+    <!-- BASIC DETAILS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">03</div>
+            <h2>Basic Details</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+                <span>Full Name</span>
+                <strong>Rupam Das</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Screen Name</span>
+                <strong>Rupam Das</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Date of Birth</span>
+                <strong>13 December 2007</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Gender</span>
+                <strong>Male</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Profession</span>
+                <strong>Actor</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Primary Focus</span>
+                <strong>Acting</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Current Base</span>
+                <strong>Sonarpur, Kolkata</strong>
+            </div>
+
+            <div class="info-item">
+                <span>State</span>
+                <strong>West Bengal, India</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Experience</span>
+                <strong>On-Set / Acting</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Theatre</span>
+                <strong>No Formal Theatre</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXPERIENCE -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">04</div>
+            <h2>Professional Experience</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+
+                <div class="timeline-title">
+                    Junior Artist & On-Set Experience
+                </div>
+
+                <div class="timeline-text">
+                    Practical experience working in professional shooting
+                    environments, understanding set discipline, camera-facing
+                    requirements, continuity awareness and production workflow.
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-title">
+                    Talky / Small Acting Roles
+                </div>
+
+                <div class="timeline-text">
+                    Experience in small speaking and acting assignments,
+                    providing exposure to dialogue delivery and performance
+                    in front of camera.
+                </div>
+
+            </div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-title">
+                    Self-Practice & Acting Development
+                </div>
+
+                <div class="timeline-text">
+                    Regular self-practice including emotional scenes,
+                    dialogue delivery, expressions, character observation
+                    and camera-facing exercises.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        <span><strong>RUPAM DAS</strong> — ACTOR PROFILE</span>
+        <span>PAGE 01 / 04</span>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================================================
+     PAGE 2
+     ========================================================= -->
+
+<section class="page">
+
+<div class="inner">
+
+    <div class="inner-header">
+        <h1>Acting Profile</h1>
+        <span>PERFORMANCE & EXPERIENCE</span>
+    </div>
+
+
+    <div class="section" style="margin-top:0;">
+
+        <div class="section-title">
+            <div class="section-number">05</div>
+            <h2>Notable Project / Set Experience</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="profile-box">
+
+            <strong>“Magic Pen”</strong><br>
+            S.K. Entertainment Presents<br>
+            Director: Arudipto Dasgupta
+
+            <br><br>
+
+            Participation in a professional production environment has helped
+            build practical familiarity with set behaviour, working around
+            cameras, following direction and adapting to shooting requirements.
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">06</div>
+            <h2>Performance Skills</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="skills-grid">
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Acting</div>
+                    <div class="skill-level">Primary Skill</div>
+                </div>
+                <div class="skill-text">
+                    Strong interest in character-based performance and willingness
+                    to adapt according to the director's vision.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Emotional Scenes</div>
+                    <div class="skill-level">Intermediate</div>
+                </div>
+                <div class="skill-text">
+                    Comfortable practising emotional expressions, reactions,
+                    dramatic scenes and character-driven moments.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Romantic Scenes</div>
+                    <div class="skill-level">Comfortable</div>
+                </div>
+                <div class="skill-text">
+                    Comfortable performing romantic situations according to
+                    professional direction and scene requirements.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Comedy</div>
+                    <div class="skill-level">Moderate</div>
+                </div>
+                <div class="skill-text">
+                    Can attempt light, situational and character-based comedy
+                    with direction and rehearsal.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Negative / Grey Roles</div>
+                    <div class="skill-level">Comfortable</div>
+                </div>
+                <div class="skill-text">
+                    Interested in antagonist, grey-shade, crime and
+                    psychologically intense characters.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Action</div>
+                    <div class="skill-level">Can Attempt</div>
+                </div>
+                <div class="skill-text">
+                    Willing to perform action scenes under professional
+                    choreography and on-floor safety guidance.
+                    No formal martial arts training.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Dialogue Delivery</div>
+                    <div class="skill-level">Good</div>
+                </div>
+                <div class="skill-text">
+                    Comfortable with Bengali and Hindi dialogue and can work
+                    with scripted English dialogue.
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-head">
+                    <div class="skill-name">Character Adaptation</div>
+                    <div class="skill-level">Flexible</div>
+                </div>
+                <div class="skill-text">
+                    Open to changing appearance, behaviour and performance
+                    style according to role and production requirements.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">07</div>
+            <h2>Casting Range</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="tags">
+
+            <span class="tag">MAIN LEAD</span>
+            <span class="tag">SUPPORTING LEAD</span>
+            <span class="tag">ROMANTIC</span>
+            <span class="tag">COLLEGE / YOUNG</span>
+            <span class="tag">ACTION</span>
+            <span class="tag">CRIME</span>
+            <span class="tag">GANGSTER</span>
+            <span class="tag">NEGATIVE</span>
+            <span class="tag">GREY CHARACTER</span>
+            <span class="tag">POLICE</span>
+            <span class="tag">ARMY</span>
+            <span class="tag">CORPORATE</span>
+            <span class="tag">FAMILY DRAMA</span>
+            <span class="tag">PERIOD</span>
+            <span class="tag">CHARACTER ROLE</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">08</div>
+            <h2>Additional Skills</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="two-col">
+
+            <div class="profile-box">
+                <strong>Dance:</strong><br>
+                Regular practice with a local dance group and willing to learn
+                choreography required for professional projects.
+            </div>
+
+            <div class="profile-box">
+                <strong>Swimming:</strong><br>
+                Can swim and can attempt swimming-related scenes where required.
+            </div>
+
+            <div class="profile-box">
+                <strong>Driving:</strong><br>
+                Can drive two-wheelers and four-wheelers. Currently does not
+                hold a driving licence.
+            </div>
+
+            <div class="profile-box">
+                <strong>Camera Work:</strong><br>
+                Comfortable with camera-facing practice, expressions and
+                performance exercises.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        <span><strong>RUPAM DAS</strong> — ACTING PROFILE</span>
+        <span>PAGE 02 / 04</span>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================================================
+     PAGE 3
+     ========================================================= -->
+
+<section class="page">
+
+<div class="inner">
+
+    <div class="inner-header">
+        <h1>Professional Readiness</h1>
+        <span>LANGUAGES • EDUCATION • AVAILABILITY</span>
+    </div>
+
+
+    <div class="section" style="margin-top:0;">
+
+        <div class="section-title">
+            <div class="section-number">09</div>
+            <h2>Language Proficiency</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <table class="language-table">
+
+            <thead>
+                <tr>
+                    <th>Language</th>
+                    <th>Speaking</th>
+                    <th>Reading</th>
+                    <th>Writing</th>
+                    <th>Project Flexibility</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><strong>Bengali</strong></td>
+                    <td>Native</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Fully Comfortable</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Hindi</strong></td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Fully Comfortable</td>
+                </tr>
+
+                <tr>
+                    <td><strong>English</strong></td>
+                    <td>Basic</td>
+                    <td>Understands</td>
+                    <td>Basic</td>
+                    <td>Scripted Dialogue</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">10</div>
+            <h2>Other Language Projects</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="profile-box">
+
+            Open to professional projects in Tamil, Telugu, Kannada, Malayalam
+            and other Indian-language productions. For projects requiring a
+            different spoken language, the actor is willing to learn required
+            dialogue with coaching, rehearsal, dubbing or professional voice
+            support as appropriate.
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">11</div>
+            <h2>Education</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+                <span>Qualification</span>
+                <strong>Higher Secondary / Class 12</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Status</span>
+                <strong>Passed — 2026</strong>
+            </div>
+
+            <div class="info-item">
+                <span>School</span>
+                <strong>KALIKAPUR Ramkamal Vidyapith</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Current Education</span>
+                <strong>College — 1st Year</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Semester</span>
+                <strong>1st Semester</strong>
+            </div>
+
+            <div class="info-item">
+                <span>College</span>
+                <strong>Baruipur College</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">12</div>
+            <h2>Pan-India Availability</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="availability-box">
+
+            <h3>Available For Professional Projects Across India</h3>
+
+            <p>
+                Available for Kolkata, West Bengal and outstation / Pan-India
+                shooting schedules, including OTT, web series, television,
+                feature films, advertisements and music videos.
+            </p>
+
+            <br>
+
+            <p>
+                Willing to travel for suitable professional assignments.
+                For outstation work, travel, accommodation and basic food
+                support may be requested from the production or mutually
+                agreed before travel.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">13</div>
+            <h2>Professional Work Approach</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="two-col">
+
+            <div class="profile-box">
+                <strong>Direction:</strong><br>
+                Willing to follow the director's performance direction,
+                blocking and scene requirements.
+            </div>
+
+            <div class="profile-box">
+                <strong>Preparation:</strong><br>
+                Open to rehearsals, workshops, look tests, costume tests
+                and character preparation.
+            </div>
+
+            <div class="profile-box">
+                <strong>Schedule:</strong><br>
+                Can discuss availability according to project shooting
+                schedule and production requirements.
+            </div>
+
+            <div class="profile-box">
+                <strong>Travel:</strong><br>
+                Open to suitable outdoor and outstation schedules.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        <span><strong>RUPAM DAS</strong> — PROFESSIONAL READINESS</span>
+        <span>PAGE 03 / 04</span>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================================================
+     PAGE 4
+     ========================================================= -->
+
+<section class="page">
+
+<div class="inner">
+
+    <div class="inner-header">
+        <h1>Portfolio & Contact</h1>
+        <span>PROFESSIONAL REPRESENTATION</span>
+    </div>
+
+
+    <!-- PROFESSIONAL TERMS -->
+
+    <div class="section" style="margin-top:0;">
+
+        <div class="section-title">
+            <div class="section-number">14</div>
+            <h2>Professional Terms</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="term-grid">
+
+            <div class="term">
+                <strong>Project Types</strong>
+                <span>
+                    Feature Films, OTT, Web Series, Television Serials,
+                    Advertisements, Music Videos and other professional
+                    screen projects.
+                </span>
+            </div>
+
+            <div class="term">
+                <strong>Auditions</strong>
+                <span>
+                    Open to genuine and verifiable auditions, screen tests,
+                    look tests and casting processes.
+                </span>
+            </div>
+
+            <div class="term">
+                <strong>Online Audition</strong>
+                <span>
+                    Online audition / self-test preferred where practical,
+                    depending on production requirements.
+                </span>
+            </div>
+
+            <div class="term">
+                <strong>Fees / Scam Protection</strong>
+                <span>
+                    No audition, registration, selection or employment fee
+                    should be required simply to obtain a role.
+                </span>
+            </div>
+
+            <div class="term">
+                <strong>Travel</strong>
+                <span>
+                    Outstation travel arrangements and related basic support
+                    can be discussed with the production in advance.
+                </span>
+            </div>
+
+            <div class="term">
+                <strong>Professional Conduct</strong>
+                <span>
+                    Willing to maintain punctuality, discipline, confidentiality
+                    and professional behaviour on set.
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PORTFOLIO PHOTOS -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">15</div>
+            <h2>Portfolio Photos</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="gallery">
+
+            <!-- PHOTO 2 -->
+            <div class="portfolio-photo">
+
+                <img
+                    id="fullBodyPhoto"
+                    src=""
+                    alt="Rupam Das Full Body"
+                    loading="eager"
+                    decoding="sync">
+
+                <div class="photo-label">
+                    FULL BODY
+                </div>
+
+            </div>
+
+
+            <!-- PHOTO 3 -->
+            <div class="portfolio-photo">
+
+                <img
+                    id="characterPhoto"
+                    src=""
+                    alt="Rupam Das Character Look"
+                    loading="eager"
+                    decoding="sync">
+
+                <div class="photo-label">
+                    CHARACTER LOOK
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT -->
+
+    <div class="section">
+
+        <div class="section-title">
+            <div class="section-number">16</div>
+            <h2>Direct Contact</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="contact-card">
+
+            <div class="contact-grid">
+
+                <div class="contact-item">
+                    <small>Full Name</small>
+                    <strong>Rupam Das</strong>
+                </div>
+
+                <div class="contact-item">
+                    <small>Profession</small>
+                    <strong>Actor</strong>
+                </div>
+
+                <div class="contact-item">
+                    <small>Phone</small>
+                    <strong>+91 9609820766</strong>
+                </div>
+
+                <div class="contact-item">
+                    <small>WhatsApp</small>
+                    <strong>+91 9609820766</strong>
+                </div>
+
+                <div class="contact-item">
+                    <small>Email</small>
+                    <strong>dasrupam1234567@gmail.com</strong>
+                </div>
+
+                <div class="contact-item">
+                    <small>Base</small>
+                    <strong>Sonarpur, Kolkata, West Bengal</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- NOTE -->
+
+    <div class="section">
+
+        <div class="note">
+
+            <strong>Professional Note:</strong>
+            This profile is intended for casting, production and professional
+            project consideration. Role suitability, remuneration, schedule,
+            travel and other project terms can be discussed directly with the
+            concerned production/casting team.
+
+        </div>
+
+    </div>
+
+
+    <!-- CTA -->
+
+    <div class="cta">
+
+        <h2>
+            AVAILABLE FOR PROFESSIONAL CASTING OPPORTUNITIES
+        </h2>
+
+        <p>
+            Films • OTT • Web Series • Television • Music Videos •
+            Advertisements • Pan-India Projects
+        </p>
+
+        <p style="margin-top:6px;">
+            Contact for auditions, casting consideration and suitable roles.
+        </p>
+
+    </div>
+
+
+    <div class="footer">
+        <span><strong>RUPAM DAS</strong> — ACTOR</span>
+        <span>PAGE 04 / 04</span>
+    </div>
+
+</div>
+</section>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   =========================================================
+   PHOTO CONFIGURATION
+   =========================================================
+   
+   ONLY CHANGE THESE 3 VALUES.
+   
+   PHOTO 1 = HEADSHOT
+   PHOTO 2 = FULL BODY
+   PHOTO 3 = SERIOUS / CHARACTER LOOK
+   
+   IMPORTANT:
+   Prefer Cloudinary / another HTTPS image host with CORS enabled.
+   =========================================================
+*/
+
+const PHOTO_URLS = {
+
+        <img src="photo1-headshot.jpg">
+<img src="photo2-fullbody.jpg">
+<img src="photo3-character.jpg">
+
+};
+
+
+/* =========================================================
+   CHECK URL
+   ========================================================= */
+
+function isUsableImageURL(url){
+
+    if(!url) return false;
+
+    if(
+        url.includes("PASTE-") ||
+        url.includes("YOUR-") ||
+        url.trim()===""
+    ){
+        return false;
+    }
+
+    return true;
+}
+
+
+/* =========================================================
+   SET IMAGE SAFELY
+   ========================================================= */
+
+function setImageElement(id,url){
+
+    const img =
+        document.getElementById(id);
+
+    if(!img) return;
+
+    if(!isUsableImageURL(url)){
+
+        img.removeAttribute("src");
+
+        img.style.background =
+            "#eeeeee";
+
+        return;
+
+    }
+
+    /*
+     * crossOrigin MUST be assigned
+     * BEFORE src.
+     */
+
+    if(
+        /^https?:\/\//i.test(url)
+    ){
+
+        img.crossOrigin =
+            "anonymous";
+
+        img.referrerPolicy =
+            "no-referrer";
+
+    }
+
+    img.src = url;
+
+}
+
+
+/* =========================================================
+   APPLY ALL PHOTOS
+   ========================================================= */
+
+function applyPhotos(){
+
+    setImageElement(
+        "profilePhoto",
+        PHOTO_URLS.profile
+    );
+
+    setImageElement(
+        "fullBodyPhoto",
+        PHOTO_URLS.fullbody
+    );
+
+    setImageElement(
+        "characterPhoto",
+        PHOTO_URLS.character
+    );
+
+}
+
+
+/* =========================================================
+   IMAGE PRELOADER
+   ========================================================= */
+
+function preloadImage(url){
+
+    return new Promise(resolve => {
+
+        if(!isUsableImageURL(url)){
+
+            resolve({
+                ok:false,
+                url:url,
+                reason:"placeholder"
+            });
+
+            return;
+
+        }
+
+        const image =
+            new Image();
+
+        let finished = false;
+
+        const finish = (
+            ok,
+            reason=""
+        ) => {
+
+            if(finished) return;
+
+            finished = true;
+
+            resolve({
+                ok:ok,
+                url:url,
+                reason:reason
+            });
+
+        };
+
+
+        /*
+         * CORS before src.
+         */
+
+        if(
+            /^https?:\/\//i.test(url)
+        ){
+
+            image.crossOrigin =
+                "anonymous";
+
+            image.referrerPolicy =
+                "no-referrer";
+
+        }
+
+
+        image.onload = () => {
+
+            finish(
+                true,
+                "loaded"
+            );
+
+        };
+
+
+        image.onerror = () => {
+
+            finish(
+                false,
+                "error"
+            );
+
+        };
+
+
+        image.src = url;
+
+
+        /*
+         * Never allow an image to
+         * block PDF generation forever.
+         */
+
+        setTimeout(() => {
+
+            finish(
+                image.complete &&
+                image.naturalWidth > 0,
+                "timeout"
+            );
+
+        },5000);
+
+    });
+
+}
+
+
+/* =========================================================
+   PRELOAD ALL PHOTOS
+   ========================================================= */
+
+async function preloadAllPhotos(){
+
+    const results =
+        await Promise.all([
+
+            preloadImage(
+                PHOTO_URLS.profile
+            ),
+
+            preloadImage(
+                PHOTO_URLS.fullbody
+            ),
+
+            preloadImage(
+                PHOTO_URLS.character
+            )
+
+        ]);
+
+    console.log(
+        "Photo preload results:",
+        results
+    );
+
+    return results;
+
+}
+
+
+/* =========================================================
+   WAIT FOR CURRENT DOM IMAGES
+   ========================================================= */
+
+async function waitForDOMImages(
+    timeout = 5000
+){
+
+    const images =
+        Array.from(
+            document.querySelectorAll(
+                "#pdfDocument img"
+            )
+        );
+
+    if(!images.length){
+
+        return;
+
+    }
+
+
+    await Promise.all(
+
+        images.map(img => {
+
+            if(
+                img.complete &&
+                img.naturalWidth > 0
+            ){
+
+                return Promise.resolve();
+
+            }
+
+
+            return new Promise(resolve => {
+
+                let done = false;
+
+
+                const finish = () => {
+
+                    if(done) return;
+
+                    done = true;
+
+                    img.removeEventListener(
+                        "load",
+                        finish
+                    );
+
+                    img.removeEventListener(
+                        "error",
+                        finish
+                    );
+
+                    resolve();
+
+                };
+
+
+                img.addEventListener(
+                    "load",
+                    finish,
+                    {
+                        once:true
+                    }
+                );
+
+
+                img.addEventListener(
+                    "error",
+                    finish,
+                    {
+                        once:true
+                    }
+                );
+
+
+                setTimeout(
+                    finish,
+                    timeout
+                );
+
+            });
+
+        })
+
+    );
+
+}
+
+
+/* =========================================================
+   WAIT FONTS
+   ========================================================= */
+
+async function waitForFonts(){
+
+    try{
+
+        if(
+            document.fonts &&
+            document.fonts.ready
+        ){
+
+            await Promise.race([
+
+                document.fonts.ready,
+
+                new Promise(
+                    resolve =>
+                    setTimeout(
+                        resolve,
+                        2500
+                    )
+                )
+
+            ]);
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Font loading wait skipped.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SLEEP
+   ========================================================= */
+
+function sleep(ms){
+
+    return new Promise(
+        resolve =>
+        setTimeout(
+            resolve,
+            ms
+        )
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ONE PAGE
+   ========================================================= */
+
+async function renderPage(
+    page,
+    scale
+){
+
+    return await html2canvas(
+        page,
+        {
+
+            scale:scale,
+
+            useCORS:true,
+
+            allowTaint:false,
+
+            backgroundColor:
+                "#ffffff",
+
+            logging:false,
+
+            imageTimeout:8000,
+
+            removeContainer:true,
+
+            foreignObjectRendering:false,
+
+            scrollX:0,
+
+            scrollY:0,
+
+            windowWidth:794,
+
+            windowHeight:1123,
+
+
+            onclone:
+                function(clonedDocument){
+
+                    /*
+                     * Force desktop A4 layout.
+                     */
+
+                    clonedDocument.body
+                        .classList
+                        .add(
+                            "pdf-rendering"
+                        );
+
+
+                    /*
+                     * Make sure images are visible.
+                     */
+
+                    const images =
+                        clonedDocument
+                        .querySelectorAll(
+                            "#pdfDocument img"
+                        );
+
+
+                    images.forEach(
+                        img => {
+
+                            img.style.display =
+                                "block";
+
+                            img.style.visibility =
+                                "visible";
+
+                            img.style.opacity =
+                                "1";
+
+                            /*
+                             * Preserve source.
+                             */
+
+                            const original =
+                                img.getAttribute(
+                                    "src"
+                                );
+
+                            if(original){
+
+                                /*
+                                 * Ensure CORS attribute
+                                 * exists in cloned DOM.
+                                 */
+
+                                if(
+                                    /^https?:\/\//i
+                                    .test(original)
+                                ){
+
+                                    img.setAttribute(
+                                        "crossorigin",
+                                        "anonymous"
+                                    );
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+
+                    clonedDocument
+                        .documentElement
+                        .style
+                        .width =
+                        "210mm";
+
+
+                    clonedDocument.body
+                        .style
+                        .width =
+                        "210mm";
+
+
+                    clonedDocument.body
+                        .style
+                        .minWidth =
+                        "210mm";
+
+
+                    clonedDocument.body
+                        .style
+                        .padding =
+                        "0";
+
+
+                    clonedDocument.body
+                        .style
+                        .margin =
+                        "0";
+
+
+                    clonedDocument.body
+                        .style
+                        .background =
+                        "#ffffff";
+
+                }
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   DIRECT BLOB DOWNLOAD
+   ========================================================= */
+
+function downloadBlob(
+    blob,
+    filename
+){
+
+    /*
+     * Modern Chrome / Android.
+     */
+
+    if(
+        "download" in
+        HTMLAnchorElement.prototype
+    ){
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+        link.href =
+            url;
+
+        link.download =
+            filename;
+
+        link.style.display =
+            "none";
+
+        document.body.appendChild(
+            link
+        );
+
+
+        try{
+
+            link.click();
+
+        }catch(error){
+
+            console.error(
+                "Direct download failed:",
+                error
+            );
+
+            /*
+             * Fallback.
+             */
+
+            try{
+
+                const {
+                    jsPDF
+                } = window.jspdf;
+
+                console.log(
+                    "Browser download fallback."
+                );
+
+            }catch(e){}
+
+        }
+
+
+        setTimeout(() => {
+
+            link.remove();
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },5000);
+
+        return;
+
+    }
+
+
+    /*
+     * Older browser fallback.
+     */
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+    setTimeout(
+        () =>
+        URL.revokeObjectURL(
+            url
+        ),
+        10000
+    );
+
+}
+
+
+/* =========================================================
+   MAIN PDF GENERATOR
+   ========================================================= */
+
+async function generatePDF(){
+
+    const button =
+        document.getElementById(
+            "downloadPdfBtn"
+        );
+
+    const status =
+        document.getElementById(
+            "pdfStatus"
+        );
+
+
+    const pages =
+        Array.from(
+            document.querySelectorAll(
+                "#pdfDocument .page"
+            )
+        );
+
+
+    if(!pages.length){
+
+        alert(
+            "No profile pages found."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Check PDF libraries.
+     */
+
+    if(
+        typeof window.jspdf ===
+        "undefined" ||
+        typeof window.html2canvas ===
+        "undefined"
+    ){
+
+        alert(
+            "PDF engine could not load.\n\n" +
+            "Please check your internet connection and reload the page."
+        );
+
+        return;
+
+    }
+
+
+    const oldScrollY =
+        window.scrollY;
+
+
+    const oldButtonText =
+        button.textContent;
+
+
+    button.disabled =
+        true;
+
+
+    try{
+
+        /* -----------------------------------------
+           STEP 1
+           ----------------------------------------- */
+
+        button.textContent =
+            "PREPARING PDF...";
+
+        status.textContent =
+            "Loading profile photos...";
+
+
+        /*
+         * Start with the normal browser layout.
+         */
+
+        document.body.classList.add(
+            "pdf-rendering"
+        );
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+
+        await waitForFonts();
+
+
+        /* -----------------------------------------
+           STEP 2
+           PHOTO PRELOAD
+           ----------------------------------------- */
+
+        const photoResults =
+            await preloadAllPhotos();
+
+
+        /*
+         * Give the actual DOM images their
+         * final src values again.
+         */
+
+        applyPhotos();
+
+
+        await waitForDOMImages(
+            5000
+        );
+
+
+        await sleep(
+            500
+        );
+
+
+        /*
+         * Log failed images.
+         * This helps diagnose CORS/image URLs.
+         */
+
+        photoResults.forEach(
+            result => {
+
+                if(
+                    !result.ok &&
+                    isUsableImageURL(
+                        result.url
+                    )
+                ){
+
+                    console.warn(
+                        "Photo could not be preloaded:",
+                        result.url,
+                        result.reason
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* -----------------------------------------
+           STEP 3
+           CREATE PDF
+           ----------------------------------------- */
+
+        const {
+            jsPDF
+        } = window.jspdf;
+
+
+        const pdf =
+            new jsPDF({
+
+                orientation:
+                    "portrait",
+
+                unit:
+                    "mm",
+
+                format:
+                    "a4",
+
+                compress:
+                    true
+
+            });
+
+
+        /*
+         * 1.35 gives good quality on Android
+         * without creating enormous canvases.
+         */
+
+        const scale =
+            1.35;
+
+
+        /* -----------------------------------------
+           STEP 4
+           PAGE BY PAGE
+           ----------------------------------------- */
+
+        for(
+            let i = 0;
+            i < pages.length;
+            i++
+        ){
+
+            button.textContent =
+                `CREATING PAGE ${i+1}/${pages.length}`;
+
+            status.textContent =
+                `Rendering A4 page ${i+1} of ${pages.length}...`;
+
+
+            let canvas;
+
+
+            try{
+
+                canvas =
+                    await Promise.race([
+
+                        renderPage(
+                            pages[i],
+                            scale
+                        ),
+
+                        new Promise(
+                            (resolve,reject) => {
+
+                                setTimeout(
+                                    () => {
+
+                                        reject(
+                                            new Error(
+                                                "Canvas rendering timeout"
+                                            )
+                                        );
+
+                                    },
+                                    30000
+                                );
+
+                            }
+                        )
+
+                    );
+
+            }catch(error){
+
+                console.warn(
+                    "High quality render failed:",
+                    error
+                );
+
+
+                /*
+                 * Android memory fallback.
+                 */
+
+                status.textContent =
+                    `Retrying page ${i+1}...`;
+
+
+                canvas =
+                    await renderPage(
+                        pages[i],
+                        1.0
+                    );
+
+            }
+
+
+            /*
+             * JPEG quality 0.97.
+             *
+             * This keeps the PDF manageable while
+             * preserving the visual quality.
+             */
+
+            const imageData =
+                canvas.toDataURL(
+                    "image/jpeg",
+                    0.97
+                );
+
+
+            /*
+             * Page 1 uses the blank first page
+             * created by jsPDF.
+             *
+             * Pages 2–4 get new A4 pages.
+             */
+
+            if(i > 0){
+
+                pdf.addPage(
+                    "a4",
+                    "portrait"
+                );
+
+            }
+
+
+            /*
+             * Exact A4 placement:
+             *
+             * X = 0
+             * Y = 0
+             * Width = 210mm
+             * Height = 297mm
+             */
+
+            pdf.addImage(
+                imageData,
+                "JPEG",
+                0,
+                0,
+                210,
+                297,
+                undefined,
+                "FAST"
+            );
+
+
+            /*
+             * Release canvas memory.
+             */
+
+            canvas.width =
+                1;
+
+            canvas.height =
+                1;
+
+        }
+
+
+        /* -----------------------------------------
+           STEP 5
+           FINALISE
+           ----------------------------------------- */
+
+        button.textContent =
+            "FINALISING PDF...";
+
+        status.textContent =
+            "Preparing download...";
+
+
+        const filename =
+            "Rupam_Das_Actor_Profile.pdf";
+
+
+        const blob =
+            pdf.output(
+                "blob"
+            );
+
+
+        if(
+            !blob ||
+            blob.size < 1000
+        ){
+
+            throw new Error(
+                "PDF blob is empty."
+            );
+
+        }
+
+
+        /* -----------------------------------------
+           STEP 6
+           DOWNLOAD
+           ----------------------------------------- */
+
+        downloadBlob(
+            blob,
+            filename
+        );
+
+
+        status.textContent =
+            "PDF READY — DOWNLOAD STARTED";
+
+        button.textContent =
+            "DOWNLOAD ACTOR PROFILE PDF";
+
+
+    }catch(error){
+
+        console.error(
+            "PDF generation error:",
+            error
+        );
+
+
+        status.textContent =
+            "PDF generation failed.";
+
+
+        button.textContent =
+            "DOWNLOAD ACTOR PROFILE PDF";
+
+
+        alert(
+            "PDF তৈরি করতে সমস্যা হয়েছে.\n\n" +
+            "যদি ছবিগুলো browser-এ দেখা যায় কিন্তু PDF-এ না আসে, " +
+            "তাহলে image hosting-এর CORS permission check করতে হবে.\n\n" +
+            "Cloudinary ব্যবহার করলে image URL অবশ্যই public এবং CORS-accessible হতে হবে."
+        );
+
+
+    }finally{
+
+        /*
+         * Restore normal website mode.
+         */
+
+        document.body.classList.remove(
+            "pdf-rendering"
+        );
+
+
+        window.scrollTo(
+            0,
+            oldScrollY
+        );
+
+
+        button.disabled =
+            false;
+
+
+        /*
+         * Keep status visible,
+         * but restore button text.
+         */
+
+        button.textContent =
+            oldButtonText;
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALISE
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        /*
+         * Apply image URLs.
+         */
+
+        applyPhotos();
+
+
+        /*
+         * Preload photos in background.
+         * This makes browser preview faster and
+         * reduces PDF image-loading problems.
+         */
+
+        try{
+
+            await preloadAllPhotos();
+
+        }catch(error){
+
+            console.warn(
+                "Initial photo preload failed:",
+                error
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
